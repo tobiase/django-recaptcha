@@ -1,6 +1,5 @@
 from setuptools import setup, find_packages
 
-
 long_desc = (
     open("README.rst", "rb").read().decode("utf-8")
     + "\n\n"
@@ -21,6 +20,7 @@ setup(
     install_requires=["django"],
     tests_require=["django-setuptest>=0.2.1"],
     test_suite="setuptest.setuptest.SetupTestSuite",
+    extras_require={"dev": ["black", "Babel", "pygments"]},
     include_package_data=True,
     classifiers=[
         "Development Status :: 5 - Production/Stable",

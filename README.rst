@@ -168,6 +168,43 @@ You can disable it by setting ``RECAPTCHA_USE_SSL = False`` in your Django
 settings, or by passing ``use_ssl=False`` to the constructor of
 ``ReCaptchaField``.
 
+Development
+-----------
+
+.. code-block:: bash
+
+    git clone git@github.com:springload/wagtail-django-recaptcha.git
+    cd wagtail-django-recaptcha/
+    virtualenv .venv
+    source ./.venv/bin/activate
+    pip install -e .[dev]
+
+Translations
+~~~~~~~~~~~~
+
+Create translations template
+
+.. code-block:: bash
+
+    python setup.py extract_messages
+
+Create translations for a language
+
+.. code-block:: bash
+
+    python setup.py init_catalog -l LANGUAGE
+
+    # Example:
+    python setup.py init_catalog -l de
+
+Update translations for a language
+
+.. code-block:: bash
+
+    python setup.py update_catalog -l LANGUAGE
+
+    # Example:
+    python setup.py update_catalog -l de
 
 Credits
 -------
