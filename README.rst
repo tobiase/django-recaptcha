@@ -196,6 +196,15 @@ Update translations for a language
     # Example:
     python setup.py update_catalog -l de
 
+Compile translations for a language
+
+.. code-block:: bash
+
+    python setup.py compile_catalog -l LANGUAGE
+
+    # Example:
+    python setup.py compile_catalog -l de
+
 Code style
 ~~~~~~~~~~
 
