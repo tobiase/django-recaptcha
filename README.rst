@@ -44,7 +44,7 @@ Installation
 
 #. Add ``'captcha'`` to your ``INSTALLED_APPS`` setting.
 
-#. Add the keys reCAPTCHA have given you to your Django production settings (leave development settings blank to use the default test keys) as
+#. Add the keys reCAPTCHA have given you to your Django production settings as
    ``RECAPTCHA_PUBLIC_KEY`` and ``RECAPTCHA_PRIVATE_KEY``. For example:
 
    .. code-block:: python
@@ -54,6 +54,8 @@ Installation
 
    These can also be specificied per field by passing the ``public_key`` or
    ``private_key`` parameters to ``ReCaptchaField`` - see field usage below.
+
+ ``RECAPTCHA_PUBLIC_KEY`` and ``RECAPTCHA_PRIVATE_KEY`` must not be set in development settings if you want to use the default test keys
 
 #. If you would like to use the new No Captcha reCaptcha add the setting
    ``NOCAPTCHA = True``. For example:
