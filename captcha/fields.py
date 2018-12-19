@@ -15,12 +15,19 @@ from .widgets import ReCaptcha
 
 class ReCaptchaField(forms.CharField):
     default_error_messages = {
-        'captcha_invalid': _('Incorrect, please try again.'),
-        'captcha_error': _('Error verifying input, please try again.'),
+        "captcha_invalid": _("Incorrect, please try again."),
+        "captcha_error": _("Error verifying input, please try again."),
     }
 
-    def __init__(self, public_key=None, private_key=None, use_ssl=None,
-                 attrs=None, *args, **kwargs):
+    def __init__(
+        self,
+        public_key=None,
+        private_key=None,
+        use_ssl=None,
+        attrs=None,
+        *args,
+        **kwargs
+    ):
         """
         ReCaptchaField can accepts attributes which is a dictionary of
         attributes to be passed to the ReCaptcha widget class. The widget will
@@ -30,12 +37,21 @@ class ReCaptchaField(forms.CharField):
         """
         if attrs is None:
             attrs = {}
-        public_key = public_key if public_key else \
-            getattr(settings, 'RECAPTCHA_PUBLIC_KEY', TEST_PUBLIC_KEY)
-        self.private_key = private_key if private_key else \
-            getattr(settings, 'RECAPTCHA_PRIVATE_KEY', TEST_PRIVATE_KEY)
-        self.use_ssl = use_ssl if use_ssl is not None else getattr(
-            settings, 'RECAPTCHA_USE_SSL', True)
+        public_key = (
+            public_key
+            if public_key
+            else getattr(settings, "RECAPTCHA_PUBLIC_KEY", TEST_PUBLIC_KEY)
+        )
+        self.private_key = (
+            private_key
+            if private_key
+            else getattr(settings, "RECAPTCHA_PRIVATE_KEY", TEST_PRIVATE_KEY)
+        )
+        self.use_ssl = (
+            use_ssl
+            if use_ssl is not None
+            else getattr(settings, "RECAPTCHA_USE_SSL", True)
+        )
 
         self.widget = ReCaptcha(public_key=public_key, attrs=attrs)
         self.required = True
@@ -44,11 +60,11 @@ class ReCaptchaField(forms.CharField):
     def get_remote_ip(self):
         f = sys._getframe()
         while f:
-            if 'request' in f.f_locals:
-                request = f.f_locals['request']
+            if "request" in f.f_locals:
+                request = f.f_locals["request"]
                 if request:
-                    remote_ip = request.META.get('REMOTE_ADDR', '')
-                    forwarded_ip = request.META.get('HTTP_X_FORWARDED_FOR', '')
+                    remote_ip = request.META.get("REMOTE_ADDR", "")
+                    forwarded_ip = request.META.get("HTTP_X_FORWARDED_FOR", "")
                     ip = remote_ip if not forwarded_ip else forwarded_ip
                     return ip
             f = f.f_back
@@ -58,8 +74,10 @@ class ReCaptchaField(forms.CharField):
         recaptcha_challenge_value = force_text(values[0])
         recaptcha_response_value = force_text(values[1])
 
-        if os.environ.get('RECAPTCHA_TESTING', None) == 'True' and \
-                recaptcha_response_value == 'PASSED':
+        if (
+            os.environ.get("RECAPTCHA_TESTING", None) == "True"
+            and recaptcha_response_value == "PASSED"
+        ):
             return values[0]
 
         if not self.required:
@@ -68,16 +86,15 @@ class ReCaptchaField(forms.CharField):
         try:
             check_captcha = client.submit(
                 recaptcha_challenge_value,
-                recaptcha_response_value, private_key=self.private_key,
-                remoteip=self.get_remote_ip(), use_ssl=self.use_ssl)
+                recaptcha_response_value,
+                private_key=self.private_key,
+                remoteip=self.get_remote_ip(),
+                use_ssl=self.use_ssl,
+            )
 
         except socket.error:  # Catch timeouts, etc
-            raise ValidationError(
-                self.error_messages['captcha_error']
-            )
+            raise ValidationError(self.error_messages["captcha_error"])
 
         if not check_captcha.is_valid:
-            raise ValidationError(
-                self.error_messages['captcha_invalid']
-            )
+            raise ValidationError(self.error_messages["captcha_invalid"])
         return values[0]
