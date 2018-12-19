@@ -173,8 +173,8 @@ Development
 
 .. code-block:: bash
 
-    git clone git@github.com:springload/wagtail-django-recaptcha.git
-    cd wagtail-django-recaptcha/
+    git clone git@github.com:tobiase/django-recaptcha.git
+    cd django-recaptcha/
     virtualenv .venv
     source ./.venv/bin/activate
     pip install -e .[dev]
