@@ -15,17 +15,7 @@ package as ``client.py``.
 Supported reCAPTCHA versions
 ----------------------------
 
-Django reCAPTCHA supports reCAPTCHA v1 and reCAPTCHA v2,
-but reCAPTCHA V1 has been shut by Google down since March 2018.
-
-Therefore the **Django reCAPTCHA can only be used with reCAPTCHA v2**!
-
-To use reCAPTCHA v2 you have to add the No Captcha setting to your settings.py:
-
-.. code-block:: python
-
-    NOCAPTCHA = True
-
+Django reCAPTCHA supports reCAPTCHA v2,
 
 Requirements
 ------------
@@ -55,14 +45,7 @@ Installation
    These can also be specificied per field by passing the ``public_key`` or
    ``private_key`` parameters to ``ReCaptchaField`` - see field usage below.
 
- ``RECAPTCHA_PUBLIC_KEY`` and ``RECAPTCHA_PRIVATE_KEY`` must not be set in development settings if you want to use the default test keys
-
-#. If you would like to use the new No Captcha reCaptcha add the setting
-   ``NOCAPTCHA = True``. For example:
-
-   .. code-block:: python
-
-       NOCAPTCHA = True
+ ``RECAPTCHA_PUBLIC_KEY`` and ``RECAPTCHA_PRIVATE_KEY`` must not be set in development settings if you want to use the default test keys.
 
 #. If you require a proxy, add a ``RECAPTCHA_PROXY`` setting, for example:
 
@@ -134,9 +117,8 @@ and cleared, using the ``setUp()`` and ``tearDown()`` methods in your test
 classes.
 
 Setting ``RECAPTCHA_TESTING`` to ``True`` causes Django reCAPTCHA to accept
-``"PASSED"`` as the ``recaptcha_response_field`` value. Note that if you are
-using the new No Captcha reCaptcha (ie. with ``NOCAPTCHA = True`` in your
-settings) the response field is called ``g-recaptcha-response``.
+``"PASSED"`` as the ``recaptcha_response_field`` value. Note that
+the response field is called ``g-recaptcha-response``.
 
 Example:
 
@@ -145,7 +127,7 @@ Example:
     import os
     os.environ['RECAPTCHA_TESTING'] = 'True'
 
-    form_params = {'recaptcha_response_field': 'PASSED'} # use 'g-recaptcha-response' param name if using NOCAPTCHA
+    form_params = {'g-recaptcha-response': 'PASSED'}
     form = RegistrationForm(form_params) # assuming only one ReCaptchaField
     form.is_valid() # True
 
@@ -175,16 +157,6 @@ To make reCAPTCHA work in ajax-loaded forms:
 
        CAPTCHA_AJAX = True
 
-
-Disabling SSL
-~~~~~~~~~~~~~
-
-This library used to not use SSL by default, but now it does. You can disable
-this if required, but you should think long and hard about it before you do so!
-
-You can disable it by setting ``RECAPTCHA_USE_SSL = False`` in your Django
-settings, or by passing ``use_ssl=False`` to the constructor of
-``ReCaptchaField``.
 
 Development
 -----------

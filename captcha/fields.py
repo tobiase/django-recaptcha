@@ -23,7 +23,6 @@ class ReCaptchaField(forms.CharField):
         self,
         public_key=None,
         private_key=None,
-        use_ssl=None,
         attrs=None,
         *args,
         **kwargs
@@ -46,11 +45,6 @@ class ReCaptchaField(forms.CharField):
             private_key
             if private_key
             else getattr(settings, "RECAPTCHA_PRIVATE_KEY", TEST_PRIVATE_KEY)
-        )
-        self.use_ssl = (
-            use_ssl
-            if use_ssl is not None
-            else getattr(settings, "RECAPTCHA_USE_SSL", True)
         )
 
         self.widget = ReCaptcha(public_key=public_key, attrs=attrs)
@@ -89,7 +83,6 @@ class ReCaptchaField(forms.CharField):
                 recaptcha_response_value,
                 private_key=self.private_key,
                 remoteip=self.get_remote_ip(),
-                use_ssl=self.use_ssl,
             )
 
         except socket.error:  # Catch timeouts, etc
