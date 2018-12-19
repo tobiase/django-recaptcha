@@ -21,9 +21,13 @@ else:
     DEFAULT_WIDGET_TEMPLATE = "captcha/widget.html"
 DEFAULT_WIDGET_TEMPLATE_AJAX = "captcha/widget_ajax.html"
 
-API_SSL_SERVER = getattr(settings, "CAPTCHA_API_SSL_SERVER", DEFAULT_API_SSL_SERVER)
+API_SSL_SERVER = getattr(
+    settings, "CAPTCHA_API_SSL_SERVER", DEFAULT_API_SSL_SERVER
+)
 API_SERVER = getattr(settings, "CAPTCHA_API_SERVER", DEFAULT_API_SERVER)
-VERIFY_SERVER = getattr(settings, "CAPTCHA_VERIFY_SERVER", DEFAULT_VERIFY_SERVER)
+VERIFY_SERVER = getattr(
+    settings, "CAPTCHA_VERIFY_SERVER", DEFAULT_VERIFY_SERVER
+)
 
 if getattr(settings, "CAPTCHA_AJAX", False):
     WIDGET_TEMPLATE = getattr(
@@ -50,7 +54,10 @@ def request(*args, **kwargs):
     """
     if getattr(settings, "RECAPTCHA_PROXY", False):
         proxy = ProxyHandler(
-            {"http": settings.RECAPTCHA_PROXY, "https": settings.RECAPTCHA_PROXY}
+            {
+                "http": settings.RECAPTCHA_PROXY,
+                "https": settings.RECAPTCHA_PROXY,
+            }
         )
         opener = build_opener(proxy)
 
@@ -84,7 +91,9 @@ def submit(
         and len(recaptcha_response_field)
         and len(recaptcha_challenge_field)
     ):
-        return RecaptchaResponse(is_valid=False, error_code="incorrect-captcha-sol")
+        return RecaptchaResponse(
+            is_valid=False, error_code="incorrect-captcha-sol"
+        )
 
     if getattr(settings, "NOCAPTCHA", False):
         params = urlencode(
