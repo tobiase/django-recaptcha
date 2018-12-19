@@ -106,6 +106,8 @@ Local Development and Functional Testing
 
 Google provides test keys which are set as the default for ``RECAPTCHA_PUBLIC_KEY`` and ``RECAPTCHA_PRIVATE_KEY``. These cannot be used in production since they always validate to true and a warning will be shown on the reCAPTCHA.
 
+See: https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha-what-should-i-do
+
 
 Unit Testing
 ~~~~~~~~~~~~
