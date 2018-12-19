@@ -206,6 +206,18 @@ Update translations for a language
     # Example:
     python setup.py update_catalog -l de
 
+Code style
+~~~~~~~~~~
+
+The codes is formatted with black. The black formatting clashes at some points with pep8.
+
+To format the code install black and run it.
+
+.. code-block:: bash
+
+    pip install black
+    black .
+
 Credits
 -------
 Inspired Marco Fucci's blogpost titled `Integrating reCAPTCHA with Django
