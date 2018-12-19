@@ -12,6 +12,20 @@ Django reCAPTCHA uses a modified version of the `Python reCAPTCHA client
 <http://pypi.python.org/pypi/recaptcha-client>`_ which is included in the
 package as ``client.py``.
 
+Supported reCAPTCHA versions
+----------------------------
+
+Django reCAPTCHA supports reCAPTCHA v1 and reCAPTCHA v2,
+but reCAPTCHA V1 has been shut by Google down since March 2018.
+
+Therefore the **Django reCAPTCHA can only be used with reCAPTCHA v2**!
+
+To use reCAPTCHA v2 you have to add the No Captcha setting to your settings.py:
+
+.. code-block:: python
+
+    NOCAPTCHA = True
+
 
 Requirements
 ------------
