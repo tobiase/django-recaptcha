@@ -5,6 +5,7 @@ Pending
 -------
 #. Dropped support for reCAPTCHA v1.
 #. Added German translation
+#. Include translations into package
 
 1.4.0 (2018-02-08)
 ------------------
